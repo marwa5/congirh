@@ -1,15 +1,17 @@
-﻿export const Badge = ({ type, children }) => {
+﻿// ─── Shared UI Components ─────────────────────────────────────────────────────
+
+export const Badge = ({ type, children }) => {
   const styles = {
-    pending: { background: "var(--warn-bg)", color: "var(--warn)" },
+    pending:  { background: "var(--warn-bg)",    color: "var(--warn)" },
     approved: { background: "var(--success-bg)", color: "var(--success)" },
-    refused: { background: "var(--danger-bg)", color: "var(--danger)" },
-    info: { background: "var(--info-bg)", color: "var(--info)" },
-    admin: { background: "var(--accent-light)", color: "var(--accent)" },
-    rh: { background: "var(--info-bg)", color: "var(--info)" },
-    manager: { background: "var(--success-bg)", color: "var(--success)" },
-    employee: { background: "var(--surface2)", color: "var(--text2)" },
-    active: { background: "var(--success-bg)", color: "var(--success)" },
-    inactive: { background: "var(--danger-bg)", color: "var(--danger)" },
+    refused:  { background: "var(--danger-bg)",  color: "var(--danger)" },
+    info:     { background: "var(--info-bg)",     color: "var(--info)" },
+    admin:    { background: "var(--accent-light)",color: "var(--accent)" },
+    rh:       { background: "var(--info-bg)",     color: "var(--info)" },
+    manager:  { background: "var(--success-bg)", color: "var(--success)" },
+    employee: { background: "var(--surface2)",   color: "var(--text2)" },
+    active:   { background: "var(--success-bg)", color: "var(--success)" },
+    inactive: { background: "var(--danger-bg)",  color: "var(--danger)" },
   };
   return (
     <span style={{
@@ -21,11 +23,11 @@
 
 export const Avatar = ({ initials, color = "accent", size = 32 }) => {
   const colors = {
-    accent: { bg: "var(--accent-light)", fg: "var(--accent)" },
-    success: { bg: "var(--success-bg)", fg: "var(--success)" },
-    warn: { bg: "var(--warn-bg)", fg: "var(--warn)" },
-    danger: { bg: "var(--danger-bg)", fg: "var(--danger)" },
-    info: { bg: "var(--info-bg)", fg: "var(--info)" },
+    accent:  { bg: "var(--accent-light)",  fg: "var(--accent)" },
+    success: { bg: "var(--success-bg)",    fg: "var(--success)" },
+    warn:    { bg: "var(--warn-bg)",       fg: "var(--warn)" },
+    danger:  { bg: "var(--danger-bg)",     fg: "var(--danger)" },
+    info:    { bg: "var(--info-bg)",       fg: "var(--info)" },
   };
   const c = colors[color] || colors.accent;
   return (
@@ -54,11 +56,11 @@ export const SectionTitle = ({ children }) => (
 
 export const Btn = ({ onClick, variant = "primary", children, style = {} }) => {
   const variants = {
-    primary: { background: "var(--accent)", color: "#fff", border: "none" },
+    primary:   { background: "var(--accent)", color: "#fff", border: "none" },
     secondary: { background: "var(--surface2)", color: "var(--text2)", border: "0.5px solid var(--border)" },
-    success: { background: "var(--success-bg)", color: "var(--success)", border: "0.5px solid rgba(59,109,17,0.2)" },
-    danger: { background: "var(--danger-bg)", color: "var(--danger)", border: "0.5px solid rgba(163,45,45,0.2)" },
-    ghost: { background: "transparent", color: "var(--text2)", border: "0.5px solid var(--border)" },
+    success:   { background: "var(--success-bg)", color: "var(--success)", border: "0.5px solid rgba(59,109,17,0.2)" },
+    danger:    { background: "var(--danger-bg)", color: "var(--danger)", border: "0.5px solid rgba(163,45,45,0.2)" },
+    ghost:     { background: "transparent", color: "var(--text2)", border: "0.5px solid var(--border)" },
   };
   return (
     <button onClick={onClick} style={{
@@ -93,17 +95,33 @@ export const Select = ({ label, children, ...props }) => (
   </div>
 );
 
+export const MetricCard = ({ label, value, sub, color = "var(--text)", barPct, barColor }) => (
+  <div style={{
+    background: "var(--surface)", border: "0.5px solid var(--border)",
+    borderRadius: "var(--radius)", padding: "14px 16px",
+  }}>
+    <div style={{ fontSize: 10, color: "var(--text3)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 5 }}>{label}</div>
+    <div style={{ fontSize: 24, fontWeight: 500, color }}>{value}</div>
+    {sub && <div style={{ fontSize: 11, color: "var(--text3)", marginTop: 3 }}>{sub}</div>}
+    {barPct !== undefined && (
+      <div style={{ height: 3, background: "var(--surface2)", borderRadius: 2, marginTop: 8, overflow: "hidden" }}>
+        <div style={{ height: "100%", width: `${barPct}%`, background: barColor || "var(--accent)", borderRadius: 2 }} />
+      </div>
+    )}
+  </div>
+);
+
 export const Sidebar = ({ current, onNav }) => {
   const NAV_ITEMS = [
-    { id: "dashboard", label: "Tableau de bord" },
-    { id: "request", label: "Nouvelle demande" },
-    { id: "profile", label: "Mon profil" },
-    { id: "validation", label: "Validation" },
-    { id: "absences", label: "Absences" },
-    { id: "calendar", label: "Calendrier" },
-    { id: "reports", label: "Rapports" },
-    { id: "admin", label: "Admin" },
-    { id: "login", label: "Déconnexion" },
+    { id: "dashboard",   label: "Tableau de bord" },
+    { id: "request",     label: "Nouvelle demande" },
+    { id: "profile",     label: "Mon profil & solde" },
+    { id: "validation",  label: "Validation (Manager)" },
+    { id: "absences",    label: "Absences (RH)" },
+    { id: "calendar",    label: "Calendrier équipe" },
+    { id: "reports",     label: "Rapports & stats" },
+    { id: "admin",       label: "Administration" },
+    { id: "login",       label: "← Déconnexion" },
   ];
   return (
     <nav style={{
@@ -111,7 +129,7 @@ export const Sidebar = ({ current, onNav }) => {
       display: "flex", flexDirection: "column", gap: 2, padding: "20px 0", flexShrink: 0,
     }}>
       <div style={{ padding: "0 16px 18px", borderBottom: "0.5px solid var(--border2)", marginBottom: 6 }}>
-        <div style={{ fontFamily: "var(--font-display)", fontSize: 16, color: "var(--accent)" }}>CongiRH</div>
+        <div style={{ fontFamily: "var(--font-display)", fontSize: 16, color: "var(--accent)", letterSpacing: "-0.3px" }}>CongiRH</div>
         <div style={{ fontSize: 11, color: "var(--text3)", marginTop: 2 }}>Gestion des congés</div>
       </div>
       {NAV_ITEMS.map(item => (

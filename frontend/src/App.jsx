@@ -1,30 +1,33 @@
 ﻿import { useState, useMemo } from "react";
 import { Sidebar } from "./components";
-import LoginView from "./views/LoginView";
-import DashboardView from "./views/DashboardView";
+
+// Views
+import LoginView       from "./views/LoginView";
+import DashboardView   from "./views/DashboardView";
 import LeaveRequestView from "./views/LeaveRequestView";
-import ProfileView from "./views/ProfileView";
-import ValidationView from "./views/ValidationView";
-import AbsencesView from "./views/AbsencesView";
-import CalendarView from "./views/CalendarView";
-import ReportsView from "./views/ReportsView";
-import AdminView from "./views/AdminView";
+import ProfileView     from "./views/ProfileView";
+import ValidationView  from "./views/ValidationView";
+import AbsencesView    from "./views/AbsencesView";
+import CalendarView    from "./views/CalendarView";
+import ReportsView     from "./views/ReportsView";
+import AdminView       from "./views/AdminView";
+
 import "./styles/App.css";
 
 const VIEWS = {
-  login: LoginView,
-  dashboard: DashboardView,
-  request: LeaveRequestView,
-  profile: ProfileView,
+  login:      LoginView,
+  dashboard:  DashboardView,
+  request:    LeaveRequestView,
+  profile:    ProfileView,
   validation: ValidationView,
-  absences: AbsencesView,
-  calendar: CalendarView,
-  reports: ReportsView,
-  admin: AdminView,
+  absences:   AbsencesView,
+  calendar:   CalendarView,
+  reports:    ReportsView,
+  admin:      AdminView,
 };
 
 export default function App() {
-  const [view, setView] = useState("login");
+  const [view,     setView]     = useState("login");
   const [loggedIn, setLoggedIn] = useState(false);
 
   const handleLogin = () => {
@@ -43,6 +46,7 @@ export default function App() {
 
   const ViewComponent = useMemo(() => VIEWS[view] ?? DashboardView, [view]);
 
+  // ── Login screen (full page) ──────────────────────────────────────────────
   if (!loggedIn || view === "login") {
     return (
       <div className="app-login">
@@ -51,6 +55,7 @@ export default function App() {
     );
   }
 
+  // ── Authenticated shell ───────────────────────────────────────────────────
   return (
     <div className="app-shell">
       <Sidebar current={view} onNav={handleNav} />
